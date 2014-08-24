@@ -55,7 +55,7 @@ int main(int argc, char** argv)
 		askForTheFile(argv[1]);
 		getch();
 		endwin();
-		return 1;
+		exit(EXIT_FAILURE);
 	}
 
 	// Don't ask Enter key in order to complete a getch()
@@ -77,7 +77,7 @@ int main(int argc, char** argv)
 	{
 		// Something wrong with the file
 		endwin();
-		return 1;
+		exit(EXIT_FAILURE);
 	}
 
 	l_iTempsDeChaqueImage = (int*)malloc(l_iNombreDeFrames*sizeof(int));
@@ -102,5 +102,6 @@ int main(int argc, char** argv)
 	// Stop the program and leave the graphic mode ! Very important !
 	endwin();
 
+	exit(EXIT_SUCCESS);
 	return 0;
 }
