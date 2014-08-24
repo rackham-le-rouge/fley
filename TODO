@@ -1,0 +1,6 @@
+TODO
+----
+g=give up / x=done / ' '=TODO
+
+
+[ ]	Add a atexit function in order to close the screen (ncurses stuff)
