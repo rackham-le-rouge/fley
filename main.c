@@ -12,6 +12,16 @@ int g_iLigne	=		0;
 int g_iColonne =		0;
 char g_cFile[30] =		"picture.fley";
 
+
+// Last function executed by the program, used to release the screen
+void killTheApp(void)
+{
+	// Stop the program and leave the graphic mode ! Very important !
+	endwin();
+}
+
+
+
 // Main
 int main(int argc, char** argv)
 {
@@ -26,6 +36,9 @@ int main(int argc, char** argv)
 
 	// Start the graphic mode
 	initscr();
+
+	// Registeration of the final function (because from this line, screen is handled by ncurses)
+	atexit(killTheApp);
 
 	// Hide the cursor
 	curs_set(0);
@@ -54,7 +67,6 @@ int main(int argc, char** argv)
 	{
 		askForTheFile(argv[1]);
 		getch();
-		endwin();
 		exit(EXIT_FAILURE);
 	}
 
@@ -76,7 +88,6 @@ int main(int argc, char** argv)
 	if(l_iNombreDeFrames == -1)
 	{
 		// Something wrong with the file
-		endwin();
 		exit(EXIT_FAILURE);
 	}
 
@@ -98,9 +109,6 @@ int main(int argc, char** argv)
 
 	// Animate the picture
 	boucleAffichageImage(l_iLargeur, l_iHauteur/l_iNombreDeFrames, l_cImage, l_iTempsDeChaqueImage, l_iNombreDeFrames);
-
-	// Stop the program and leave the graphic mode ! Very important !
-	endwin();
 
 	exit(EXIT_SUCCESS);
 	return 0;
