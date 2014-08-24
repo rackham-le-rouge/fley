@@ -9,6 +9,7 @@
 */
 
 
+void killTheApp(void);
 extern void initBar();
 extern void topText(char*);
 extern void botText(char*);
