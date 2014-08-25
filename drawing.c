@@ -1,3 +1,16 @@
+/**
+ * @file        drawing.c
+ * @rogram      Fley
+ * @brief       Drawing method of the program
+ * @description In this file, there is all of the drawing methods of the program (using ncurses).
+ * @date        1/2014
+ * @licence     Beerware (rev 42)
+ * @author      Jerome GRARD
+ */
+
+
+
+
 #include <ncurses.h>                    /* ncurses.h includes stdio.h */
 #include <string.h>
 #include "conf.h"
@@ -9,10 +22,7 @@
 
 
 
-
-
-
-// Blues lines - Top and bottom of the screen
+/** @brief Blues lines - Top and bottom of the screen */
 void initBar()
 {
         int row,col,i;                          /* to store the number of rows and */
@@ -20,10 +30,10 @@ void initBar()
         start_color();                          /* start color mode */
         init_pair(1, COLOR_BLACK, COLOR_LINE_BG_BOTTOM);   /* référence des couleurs */
         attron(COLOR_PAIR(1));
-        // Bottom line
+        /* Bottom line */
         for(i = 0; i<col ; i++)
                 mvprintw(row-1,i," ");
-        // Top line
+        /* Top line */
         attroff(COLOR_PAIR(1));
         init_pair(2, COLOR_BLACK, COLOR_LINE_BG_TOP);   /* référence des couleurs */
         attron(COLOR_PAIR(2));
@@ -40,8 +50,11 @@ void initBar()
 
 
 
-// Text of the top line
-void topText(char s[])
+/** @brief Text of the top line
+  * @param s : String at the top of the screen
+  */
+
+void topText(char* s)
 {
         start_color();                          /* start color mode */
         attron(COLOR_PAIR(2));
@@ -53,7 +66,7 @@ void topText(char s[])
 
 
 
-// Disable the two lines
+/** @brief Disable the two lines */
 void disableBar()
 {
         start_color();                          /* start color mode */
@@ -70,8 +83,9 @@ void disableBar()
 
 
 
-// Text of the bottom line
-void botText(char s[])
+/** @brief Text of the bottom line
+  * @param s : String at the bottom of the screen */
+void botText(char* s)
 {
         int row,col;                            /* to store the number of rows and */
         getmaxyx(stdscr,row,col);               /* get the number of rows and columns */
@@ -86,20 +100,25 @@ void botText(char s[])
 
 
 
-// Draw an element on the screen
+/** @brief Draw an element on the screen
+  * @param x : x position of the character
+  * @param y : y position of the character
+  * @param c : character to draw
+  * @param color : color code. Defined in conf.h
+  */
 int drawElement(int x, int y, char c, int color)
 {
         int row,col;                            /* to store the number of rows and */
         getmaxyx(stdscr,row,col);               /* get the number of rows and columns */
 
-	// Graphical binding
+	/* Graphical binding */
 	if(x>col) return -1;
 	if(y>row) return -1;
 
         start_color();                          /* start color mode */
         attron(COLOR_PAIR(color));
 
-	// Draw the element
+	/* Draw the element */
         mvprintw(y,x,"%c", c);
 
 	attroff(COLOR_PAIR(color));
@@ -107,7 +126,7 @@ int drawElement(int x, int y, char c, int color)
 }
 
 
-// Initialisation of the colors of each kind of people
+/** @brief Initialisation of the colors */
 void initColor()
 {
 	start_color();
@@ -135,7 +154,10 @@ void initColor()
 
 
 
-// Draw the intro panel
+/** @brief Draw the intro panel
+  * @param row : Number of rows in the screen
+  * @param col : Number of columns in the screen
+  */
 void drawIntro(int row, int col)
 {
         start_color();                          /* start color mode */
@@ -191,11 +213,14 @@ void drawIntro(int row, int col)
 
 
 
-// Draw str to the center of the screen
+/** @brief Draw str to the center of the screen
+  * @param str : String to write in the center of the screen
+  * @param col : Column in the screen (the width)
+  * @param row : The line to write */
 int drawCenter(char* str, int col, int row)
 {
-	// si on met -1 en col ou en row, il prendra comme valeur la première valeur non nulle qui
-	// lui a été donnée.
+	/* si on met -1 en col ou en row, il prendra comme valeur la première valeur non nulle qui
+	 lui a été donnée. */
 	static int backupCol = 0;
 	static int backupRow = 0;
 
@@ -208,11 +233,18 @@ int drawCenter(char* str, int col, int row)
 
 
 
-
+/** @brief this is actually the main function of this program. This function display pictures in the right order at the
+           right moment
+    @param p_iLargeur : Width of the screen
+    @param p_iHauteur : Height of the screen
+    @param p_cImage : Pictures matrix, loaded bu io.c. There is all pictures to display
+    @param p_iTempsDesImages : In this matrix there is the displaying time of each pictures
+    @param p_iNombretotalImage : How many images to draw
+    */
 void boucleAffichageImage(int p_iLargeur, int p_iHauteur, char** p_cImage, int* p_iTempsDesImages, int p_iNombreTotalImage)
 {
-	// Dans cette boucle les images vont défiler les unes a la suite des autres de sorte
-	// a donner une impression de mouvement
+	/* Dans cette boucle les images vont défiler les unes a la suite des autres de sorte
+	   a donner une impression de mouvement */
 
 	int l_iLargeur, l_iHauteur;
 	int l_iImageEnCours = 0;
@@ -253,7 +285,7 @@ void boucleAffichageImage(int p_iLargeur, int p_iHauteur, char** p_cImage, int* 
 					case ' ':	l_enumCouleurDeLaMatrice =	enumNoir; break;
 					default:	l_enumCouleurDeLaMatrice =	enumNoir; break;
 				}
-				//if(l_iLargeur<col && l_iHauteur<row)
+				/*if(l_iLargeur<col && l_iHauteur<row) */
 				drawElement(l_iLargeur + (col - p_iLargeur)/2 , l_iPositionY, ' ', l_enumCouleurDeLaMatrice);
 			}
 			l_iPositionY++;
@@ -307,8 +339,8 @@ void boucleAffichageImage(int p_iLargeur, int p_iHauteur, char** p_cImage, int* 
 		else
 			printDate(0);
 
-		// Debug
-		//mvprintw(1,1,"%d",l_iImageEnCours);
+		/* Debug */
+		/*mvprintw(1,1,"%d",l_iImageEnCours); */
 
 		refresh();
 		usleep(1000*TIME_FOR_A_LOOP);
@@ -317,9 +349,12 @@ void boucleAffichageImage(int p_iLargeur, int p_iHauteur, char** p_cImage, int* 
 }
 
 
+/** @brief Print date at the bottom of the screen
+    @param p_bAfficher : used like a boolean value to control whether we have or not to display the time
+  */
 void printDate(char p_bAfficher)
 {
-	// Afficher la date en bas
+	/* Afficher la date en bas */
 	time_t l_timeTimer;
 	struct tm y2k;
 	static double l_iSecondsDebut = 0;
@@ -340,11 +375,11 @@ void printDate(char p_bAfficher)
 
 	sprintf(l_cChaine, "%.f", l_iSecondsEnCours - l_iSecondsDebut);
 
-	// Nettoyer avant chaque écriture
+	/* Nettoyer avant chaque écriture
 	for(l_iIterateur = 0; l_iIterateur < strlen(l_cChaine) + 2 ; l_iIterateur++)
 		mvprintw(row-5, (int)(col/2) - strlen(l_cChaine)/2 - 3 + l_iIterateur  , "    ");
 
-	// Afficher ou nettoyer l'écran
+	/* Afficher ou nettoyer l'écran
 	if(p_bAfficher) mvprintw(row - 5,(int)(col/2) - strlen(l_cChaine)/2,"%.f",l_iSecondsEnCours - l_iSecondsDebut);
 }
 

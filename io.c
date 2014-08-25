@@ -1,3 +1,16 @@
+/**
+ * @file        io.c
+ * @rogram      Fley
+ * @brief       I/O functions on files
+ * @description In this file, there is all I/O fiunctions on files (loading pictures etc...)
+ * @date        1/2014
+ * @licence     Beerware (rev 42)
+ * @author      Jerome GRARD
+ */
+
+
+
+
 #include <ncurses.h>                    /* ncurses.h includes stdio.h */
 #include <string.h>
 #include "conf.h"
@@ -9,16 +22,13 @@
 
 extern char g_cFile[30];
 
-
+/** @brief Load from file the number of pictures to display and return it.
+  * @param p_iLargeur : Max width of a picture
+  * @param p_iHauteur : Max height of a picture
+  */
 int nombreDeFrames(int* p_iLargeur, int* p_iHauteur)
 {
-	/*
-	return Nbr de frames
-	p_iLargeur = largeur max d'une image
-	p_iHauteur = hauteur de toute l'image
-	*/
-
-	// Donne le nombre de frames dans l'image totale
+	/*  Donne le nombre de frames dans l'image totale */
 	int l_iFrames = 0;
 	int l_iLargeur = 0;
 	char l_cCaractereEnCours = ' ';
@@ -31,7 +41,7 @@ int nombreDeFrames(int* p_iLargeur, int* p_iHauteur)
 	    {
 		l_cCaractereEnCours = fgetc(l_fileFichier);
 
-		// Tous les cas spéciaux
+		/*  Tous les cas spéciaux */
 		switch(l_cCaractereEnCours)
 		{
 			case '@':
@@ -43,7 +53,7 @@ int nombreDeFrames(int* p_iLargeur, int* p_iHauteur)
 				(*p_iHauteur)++;
 				if(l_iLargeur > *p_iLargeur) *p_iLargeur = l_iLargeur;
 				l_iLargeur = 0;
-				//if(*p_iHauteur > DIMENTION_IMAGE_MAX_HAUTEUR) *p_iHauteur = DIMENTION_IMAGE_MAX_HAUTEUR;
+				/* if(*p_iHauteur > DIMENTION_IMAGE_MAX_HAUTEUR) *p_iHauteur = DIMENTION_IMAGE_MAX_HAUTEUR; */
 				if(*p_iLargeur > DIMENTION_IMAGE_MAX_LARGEUR) *p_iLargeur = DIMENTION_IMAGE_MAX_LARGEUR;
 				break;
 			default:
@@ -60,10 +70,15 @@ int nombreDeFrames(int* p_iLargeur, int* p_iHauteur)
 }
 
 
+
+/** @brief Load all pictures from the file
+    @param p_iLargeur : Used to return the max width of the picture, and thus the witdh of all pictures
+    @param p_iHauteur : Used to return the max height of the picture, and thus the height of all pictures
+    @param p_cImage : Matrix with all pictures in it.
+    @param p_iTempsDeChaqueImage : Matric used to return the displaying time of each picture stored in p_iImage
+    */
 void chargerImageDuFichier(int* p_iLargeur, int* p_iHauteur, char** p_cImage, int* p_iTempsDeChaqueImage)
 {
-	// Fonction de chargement de l'image depuis le fichier
-
 	int l_iLargeur = 0;
 	int l_iHauteur = 0;
 	int l_iImageEnCours = 0;
@@ -80,7 +95,7 @@ void chargerImageDuFichier(int* p_iLargeur, int* p_iHauteur, char** p_cImage, in
 	    {
 		l_cCaractereEnCours = fgetc(l_fileFichier);
 
-		// Tous les cas spéciaux
+		/*  Tous les cas spéciaux */
 		switch(l_cCaractereEnCours)
 		{
 			case '@':
@@ -105,8 +120,8 @@ void chargerImageDuFichier(int* p_iLargeur, int* p_iHauteur, char** p_cImage, in
 				l_iLargeur = 0;
 				break;
 			default:
-				// Dans les cas normaux
-				//if(l_iHauteur < *p_iHauteur && l_iLargeur < *p_iLargeur)
+				/*  Dans les cas normaux */
+				/* if(l_iHauteur < *p_iHauteur && l_iLargeur < *p_iLargeur) */
 				p_cImage[l_iHauteur][l_iLargeur++] = l_cCaractereEnCours;
 				break;
 		 }
@@ -117,7 +132,9 @@ void chargerImageDuFichier(int* p_iLargeur, int* p_iHauteur, char** p_cImage, in
 }
 
 
-
+/** @brief Function called if the user don't specify a file to load
+    @param p_cFile : The file to load
+    */
 void askForTheFile(char* p_cFile)
 {
 	mvprintw(2, 0, "You need the specify a file in the command line");

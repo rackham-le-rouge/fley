@@ -2,11 +2,17 @@
 #define DRAWING_H
 
 
-/*
 
-        Header of the graphical part of the program
+/**
+ * @file        drawing.h
+ * @rogram      Fley
+ * @brief       Drawing method of the program
+ * @description In this file, there is all of the drawing methods of the program (using ncurses).
+ * @date        1/2014
+ * @licence     Beerware (rev 42)
+ * @author      Jerome GRARD
+ */
 
-*/
 
 
 void initBar();

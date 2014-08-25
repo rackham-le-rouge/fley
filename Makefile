@@ -1,6 +1,17 @@
+#
+# \file                 Makefile
+# \author               Jerome GRARD
+# \version              1.0
+# \date                 2014
+# \brief                Makefile for fley
+#
+# \details              Cleaning and compilation macro
+
+
+
 CC=gcc
 CFLAGS=-Wall
-LDFLAGS=-lncurses
+LDFLAGS=-lncurses -O2
 EXEC=fley
 
 all: $(EXEC)

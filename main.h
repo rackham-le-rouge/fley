@@ -2,11 +2,16 @@
 #define MAIN_H
 
 
-/*
+/**
+ * @file        main.h
+ * @rogram      Fley
+ * @brief       Main file - Start and stop functions
+ * @description First and last functions executed by the program are here and the squeleton of the program too.
+ * @date        1/2014
+ * @licence     Beerware (rev 42)
+ * @author      Jerome GRARD
+ */
 
-	Header of the main program
-
-*/
 
 
 void killTheApp(void);
