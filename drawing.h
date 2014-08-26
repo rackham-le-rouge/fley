@@ -15,15 +15,15 @@
 
 
 
-void initBar();
-void disableBar();
-void enableBar();
-void topText(char*);
-void botText(char*);
+void initBar(void);
+void disableBar(void);
+void enableBar(void);
+void topText(const char*);
+void botText(const char*);
 int drawElement(int, int, char, int);
-void initColor();
+void initColor(void);
 void drawIntro(int, int);
-int drawCenter(char*, int, int);
+int drawCenter(const char*, int, int);
 void boucleAffichageImage(int, int, char**, int*, int);
 void printDate(char p_bAfficher);
 

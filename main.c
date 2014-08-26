@@ -10,18 +10,14 @@
 
 
 
-#include <string.h>
-#include <stdlib.h>
-#include <ncurses.h>
 #include "conf.h"
-#include "main.h"
 
 char rev[] = "0.0";
 char ver[] = "1.0";
 
 
-int g_iLigne	=		0;
-int g_iColonne =		0;
+unsigned int g_iLigne	=	0;
+unsigned int g_iColonne =	0;
 char g_cFile[30] =		"picture.fley";
 
 
@@ -49,6 +45,8 @@ int main(int argc, char** argv)
 	int l_iNombreDeFrames = 0;
 	int l_iLargeurEnCoursDeTraitement = 0;
 	int l_iHauteurEnCoursDeTraitement = 0;
+	char l_cBuffer[250];
+	char l_cBuffer2[250];
 
 	/*  Start the graphic mode */
 	initscr();
@@ -59,8 +57,6 @@ int main(int argc, char** argv)
 	/*  Hide the cursor */
 	curs_set(0);
 
-	char l_cBuffer[250];
-	char l_cBuffer2[250];
 	noecho();
 	cbreak();
 	sprintf(l_cBuffer, "Fley - Ver %s - Rev %s - Dev by Geo", ver, rev);
@@ -81,7 +77,7 @@ int main(int argc, char** argv)
 	if(argc > 1) strcpy(g_cFile, argv[1]);
 	if(argc == 1)
 	{
-		askForTheFile(argv[1]);
+		askForTheFile();
 		getch();
 		exit(EXIT_FAILURE);
 	}
@@ -90,8 +86,8 @@ int main(int argc, char** argv)
 	nodelay(stdscr, 1);
 
 
-	/*  Right message on the bottom bar */
-	for(l_iTmp=0; l_iTmp < g_iColonne - strlen(l_cBuffer) ; l_iTmp++)
+	/*  Right message on the bottom bar - put l_iTmp as an unsigned value because, in this case, l_iTmp can't (musn't) be negative */
+	for(l_iTmp=0; (unsigned)l_iTmp < g_iColonne - strlen(l_cBuffer) ; l_iTmp++)
 	{
 		l_cBuffer2[l_iTmp] = ' ';
 		l_cBuffer2[l_iTmp+1] = '\0';
@@ -118,7 +114,7 @@ int main(int argc, char** argv)
 
 
 	/*  Load pictures from file */
-	chargerImageDuFichier(&l_iLargeur, &l_iHauteur, l_cImage, l_iTempsDeChaqueImage);
+	chargerImageDuFichier(l_cImage, l_iTempsDeChaqueImage);
 
 
 	if(argc > 2) disableBar();

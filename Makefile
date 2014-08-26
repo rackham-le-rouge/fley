@@ -6,14 +6,12 @@
 # \brief                Makefile for fley
 #
 # \details              Cleaning and compilation macro - We are using the compilation option of the libcommon project
-			(http://www.thelibcommonproject.org) to improve our code quality.
+#			(http://www.thelibcommonproject.org) to improve our code quality.
 
 
 
 CC=gcc
-LDFLAGS=-lncurses -O2
-EXEC=fley
-CFLAGS=-fopenmp -W -Waggregate-return -Wall -Warray-bounds -Wbad-function-cast -Wcast-align -Wcast-qual         \
+CFLAGS=         -W -Waggregate-return -Wall -Warray-bounds -Wbad-function-cast -Wcast-align -Wcast-qual         \
                  -Wchar-subscripts -Wcomment -Wdeclaration-after-statement -Werror -Wextra -Wfloat-equal        \
                  -Wformat -Wformat-nonliteral -Wformat-security -Wformat-y2k -Wignored-qualifiers -Wimplicit    \
                  -Wimplicit-function-declaration -Wimplicit-int -Winit-self -Winline -Winvalid-pch -Wlogical-op \
@@ -26,6 +24,8 @@ CFLAGS=-fopenmp -W -Waggregate-return -Wall -Warray-bounds -Wbad-function-cast -
                  -Wunknown-pragmas -Wunsafe-loop-optimizations -Wunused -Wunused-function -Wunused-label        \
                  -Wunused-parameter -Wunused-value -Wunused-variable -Wvla -Wvolatile-register-var              \
                  -Wwrite-strings -fno-common -fstack-protector-all -pedantic -std=c99 -Wstrict-aliasing=3
+LDFLAGS=-lncurses -O2
+EXEC=fley
 
 
 

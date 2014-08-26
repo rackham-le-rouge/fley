@@ -5,4 +5,4 @@ g=give up / x=done / ' '=TODO
 
 [x]	Add a atexit function in order to close the screen (ncurses stuff)
 [x]	Doxygen-conform comments
-[ ]	Conform makefile
+[x]	Conform makefile

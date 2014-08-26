@@ -15,9 +15,9 @@
 
 
 
-void chargerImageDuFichier(int*, int*, char**, int*);
+void chargerImageDuFichier(char**, int*);
 int nombreDeFrames(int*, int*);
-void askForTheFile(char*);
+void askForTheFile(void);
 
 #endif
 

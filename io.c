@@ -11,12 +11,7 @@
 
 
 
-#include <ncurses.h>                    /* ncurses.h includes stdio.h */
-#include <string.h>
 #include "conf.h"
-#include "io.h"
-#include <unistd.h>
-#include <stdlib.h>
 
 
 
@@ -28,12 +23,16 @@ extern char g_cFile[30];
   */
 int nombreDeFrames(int* p_iLargeur, int* p_iHauteur)
 {
-	/*  Donne le nombre de frames dans l'image totale */
-	int l_iFrames = 0;
-	int l_iLargeur = 0;
-	char l_cCaractereEnCours = ' ';
-
 	FILE * l_fileFichier;
+
+	int l_iFrames;
+	int l_iLargeur;
+	char l_cCaractereEnCours;
+
+	l_iFrames = 0;
+	l_iLargeur = 0;
+	l_cCaractereEnCours = ' ';
+
  	l_fileFichier = fopen(g_cFile,"r");
 	if (l_fileFichier!=NULL)
 	{
@@ -72,12 +71,10 @@ int nombreDeFrames(int* p_iLargeur, int* p_iHauteur)
 
 
 /** @brief Load all pictures from the file
-    @param p_iLargeur : Used to return the max width of the picture, and thus the witdh of all pictures
-    @param p_iHauteur : Used to return the max height of the picture, and thus the height of all pictures
     @param p_cImage : Matrix with all pictures in it.
     @param p_iTempsDeChaqueImage : Matric used to return the displaying time of each picture stored in p_iImage
     */
-void chargerImageDuFichier(int* p_iLargeur, int* p_iHauteur, char** p_cImage, int* p_iTempsDeChaqueImage)
+void chargerImageDuFichier(char** p_cImage, int* p_iTempsDeChaqueImage)
 {
 	int l_iLargeur = 0;
 	int l_iHauteur = 0;
@@ -133,9 +130,8 @@ void chargerImageDuFichier(int* p_iLargeur, int* p_iHauteur, char** p_cImage, in
 
 
 /** @brief Function called if the user don't specify a file to load
-    @param p_cFile : The file to load
     */
-void askForTheFile(char* p_cFile)
+void askForTheFile(void)
 {
 	mvprintw(2, 0, "You need the specify a file in the command line");
 	mvprintw(3, 0, "Add a second parameter to make this screen disapear.");

@@ -18,6 +18,13 @@
  */
 
 
+#include <string.h>
+#include <stdlib.h>
+#include <ncurses.h>
+#include <string.h>
+#include <time.h>
+#include <unistd.h>
+#include <sys/types.h>
 
 
 
@@ -74,6 +81,20 @@ typedef enum
 
 #define	DEBUG_T1	{mvprintw(1, 1, "/%d/", 314);refresh();getch();}
 #define	DEBUG_T2	{mvprintw(1, 1, "/%d/", 235);refresh();getch();}
+
+
+
+/* Imported from other standart lib */
+typedef unsigned int    uint_t;         /** don't know why i need to put that here. I already included sys/types.h and all is in it. FIXME ! */
+typedef uint_t          useconds_t;     /** Time, in microseconds */
+int usleep(useconds_t usec);
+
+
+
+#include "main.h"
+#include "drawing.h"
+#include "io.h"
+
 
 
 #endif
